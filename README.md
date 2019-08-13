@@ -37,5 +37,40 @@ pkg> add IJulia
 ## install PyCall: package for call python modules
 pkg> add PyCall
 
+## install PyPlot: package for call matplotlib module
+pkg> add PyPlot
+
 # -> press `Ctrl + D` key to exit julia REPL
 ```
+
+### Setup in Google Colaboratory
+マシンスペックが足りず、ローカル環境での開発が難しい場合は、[Google Colaboratory](https://colab.research.google.com) を使ってディープラーニングの開発ができる
+
+#### Preparation
+まず、Google Drive のマウントと Julua 1.1.1 のインストールを行う
+
+- [colab/Julia_startup.ipynb](./colab/Julia_startup.ipynb) を [Google Drive](https://drive.google.com/drive/my-drive) にアップロードする
+- **Julia_startup.ipynb** を Google Colaboratory で開く
+    - 右クリック > アプリで開く > Google Colaboratory
+- ランタイム > すべてのセルを実行 (`Ctrl + F9`)
+    - Google Drive をマウント:
+        - 認証用URLにアクセスし、アクセスを許可
+        - 発行された認証トークンをコピーし、inputボックスに貼り付ける
+        - マウントに成功すると `/content/drive/My Drive/` から Google Drive のデータにアクセスできるようになる
+    - Julia 1.1.1 をインストール:
+        - パッケージのダンロードとインストールが終わるまで待つ
+
+#### Run Julia 1.1
+上記の準備が完了したら、Julia 1.1 カーネルの Jupyter Notebook を実行する
+
+- [colab/Julia1.1.ipynb](./colab/Julia1.1.ipynb) を [Google Drive](https://drive.google.com/drive/my-drive) にアップロードする
+- **Julia1.1.ipynb** を Google Colaboratory で開く
+    - 右クリック > アプリで開く > Google Colaboratory
+- 動作確認用に以下のコードを実行
+    ```julia
+    for i = 1:3
+        println("動作確認: $(i)回目")
+    end
+    ```
+    - JuliaはJITコンパイルを行うため、初回起動時はそこそこ時間がかかる
+    - 問題なく実行できたら成功
