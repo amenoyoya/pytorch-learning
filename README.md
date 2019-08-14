@@ -43,6 +43,9 @@ pkg> add PyPlot
 ## install JSON: package for JSON parser
 pkg> add JSON
 
+## install HTTP: package for HTTP messages
+pkg> add HTTP
+
 # -> press `Ctrl + D` key to exit julia REPL
 ```
 
