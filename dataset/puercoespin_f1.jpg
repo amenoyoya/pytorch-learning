@@ -1,0 +1,162 @@
+<HTML>
+<HEAD>
+<TITLE>No podemos encontrar esa página</TITLE>
+<META name="Description" content="">
+<META name="Keywords" content="">
+
+
+<LINK href="estilo.css" type=text/css rel=stylesheet>
+</head>
+
+<BODY topmargin="0" leftmargin="0" rigthmargin="0" marginwidth="0" marginheight="0" LINK=#c43100 VLINK=#582d05 ALINK=#c43100 bgcolor="#FFFFFF">
+<div id="conabio">
+<MAP name=navsup1> 
+  <AREA shape=POLY coords='75, 19, 83, 8, 91, 5, 108, 4, 116, 7, 124, 19' href="http://www.conabio.gob.mx">
+  
+</MAP>
+<MAP name=navsup2>
+  <AREA shape=POLY coords=77,0,77,17,87,27,114,27,122,19,122,0 href="http://www.conabio.gob.mx">
+  
+</MAP>
+<MAP name=navsup3>
+  <AREA shape=POLY coords=89,0,94,3,98,4,102,4,107,2,110,1,111,1,112,4,113,4,114,0 href="http://www.conabio.gob.mx">
+  </MAP>
+
+<table cellspacing=0 cellpadding=0 width=765 border=0 height="73">
+  <tr> 
+    <td class=TdNivel1 width=130 height="17"><img height=19 
+      src="../imagenes/navsup1.gif" width=130 usemap=#navsup1 border=0></td>
+
+    <td class=TdNivel1 width=607 height="17">&nbsp;
+    
+    </td>
+
+    <td width=59 height="17"><img height=19 
+      src="../imagenes/navsupterm1.gif" width=55 border=0></td>
+  </tr>
+
+  <tr> 
+    <td class=TdMenu width=130 valign="top"><img 
+      src="../imagenes/navsup2.gif" usemap=#navsup2 border=0 width="130" height="28"></td>
+
+    <td class=TdMenu width=607>&nbsp;</td>
+
+    <td width=59><img 
+      src="../imagenes/navsupterm2.gif" border=0 width="55" height="28"></td>
+  </tr>
+
+  <tr> 
+    <td class=TdNivel2 width=130 height="22" valign="top"><img 
+      src="../imagenes/navsup3.gif" usemap=#navsup3 border=0 width="130" height="36"></td>
+
+    <td class=TdNivel2 width=607 height="22"><span class="Submenu">&nbsp;</span></td>
+
+    <td width=59 height="22"><img height=36 
+      src="../imagenes/navsupterm3.gif" width=55 border=0></td>
+  </tr>
+
+  <tr> 
+    <td width=130 height="14" valign="top"><img height=14 src="../imagenes/navsup4.gif" width=130 border=0></td>
+
+    <td width=607 height="14" class="Texto">
+       <font class=Referencia><a href="http://www.conabio.gob.mx" class="Referencia">Conabio</a></font></td>
+
+    <td width=59 height="14"></td>
+
+  </tr>
+</table>
+
+<br class=Texto><center><span class=NoEstilo>Para ver correctamente esta p&aacute;gina su navegador debe soportar CSS</span></center>
+
+<TABLE height=44 cellSpacing=0 cellPadding=0 width=765 border=0>
+  <TR>
+    <TD vAlign=top width=100 height=211>
+      <table border="0" width="100%" cellspacing="0" cellpadding="0" height="439">
+        <tr>
+          <td width="100%" height="21" valign="bottom">
+    
+    <IMG height=18 
+      src="../imagenes/menugris.gif" width=100 border=0></td>
+        </tr>
+        <tr>
+          <td width="100%" height="397" class="TdNivel1">&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="100%" height="21" valign="top" class="Texto"><img height=18 src="../imagenes/menugrisbaja.gif" width=100 border=0>
+    
+          </td>
+        </tr>
+      </table>
+    </TD>
+
+    <TD vAlign=top width=12 height=44></TD>
+
+    <TD vAlign=top width=653 height=44>
+    
+<p class="Titulo" align="center">
+  No podemos encontrar esa página
+</p>
+
+<p class="Texto">
+  Lo sentimos lo que intent&oacute; buscar no fue encontrado en nuestro sitio. Recuerde
+  que la estructura del sito cambi&oacute; desde el 30 de abril de 2002, para reportar
+  una liga inexistente por favor, escriba un mensaje a <a href="mailto:conabio@xolo.conabio.gob.mx">
+  conabio@xolo.conabio.gob.mx</a>.
+</p>
+
+<p class="Texto">
+  Presione aquí para nuestro <a href="../../../pagina_principal/mapa_del_sitio.html"> mapa del sitio y búsqueda</a> o vaya a nuestra
+  <a href="http://www.conabio.gob.mx"> página principal</a>.
+</p>
+<p class="Texto">&nbsp;</p>
+<p class="Titulo" align="center">
+  We can’t find that page.
+</p>
+
+<p class="Texto">
+  We are sorry, the page you attempted to find was not found on Conabio’s
+  site, Remember that the structure site was change since april 29th, 2002, to
+  report a broken link, please send a message to <a href="mailto:conabio@xolo.conabio.gob.mx"> conabio@xolo.conabio.gob.mx</a>.
+</p>
+<p class="Texto">
+  Click here to our <a href="../../../pagina_principal/mapa_del_sitio.html"> Site Map and Search</a> or go to our home
+<a href="http://www.conabio.gob.mx"> page site</a>.
+</p>
+<p class="Texto">&nbsp;</p>
+
+    </TD>
+  </TR>
+
+ </TABLE>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+ var update = new Date(document.lastModified);
+ var days = new Array('domingo','lunes','martes','miércoles',
+                      'jueves','viernes','sabado');
+ var months = new Array('enero','febrero','marzo','abril',
+                          'mayo','junio','julio','agosto','septiembre',
+                         'octubre','noviembre','diciembre');
+ var date = ((update.getDate()<10) ? "0" : "")+ update.getDate();
+ function getCorrectedYear(year) {
+     year = year - 0;
+     if (year < 70) return (2000 + year);
+     if (year < 1900) return (1900 + year);
+     return year;
+ }
+ function y2k(number){return (number < 1000) ? number + 1900 : number;}
+ var y2kdate = new Date(getCorrectedYear(update.getYear()),update.getMonth(),update.getDate());
+ modified =  days[y2kdate.getDay()] + " " +
+         date + " " +
+           months[y2kdate.getMonth()] + ", " +
+             (y2k(y2kdate.getYear())) ;
+ document.write("<center><span class='UltimaAct'>&Uacute;ltima actualizaci&oacute;n: "+modified+"</span></center>");
+
+// -->
+</SCRIPT>
+
+</div> <!-- find de conabio -->
+
+</BODY>
+</HTML>
+
