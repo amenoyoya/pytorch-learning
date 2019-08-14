@@ -1,7 +1,0 @@
-<!-- This page hides the content of the /pages/ directory and sends to YOURLS root -->
-<html>
-<head>
-<meta http-equiv="refresh" content="0;url=https://zoo.sandiegozoo.org"></head>
-<body>
-</body>
-</html>
