@@ -40,6 +40,9 @@ pkg> add PyCall
 ## install PyPlot: package for call matplotlib module
 pkg> add PyPlot
 
+## install JSON: package for JSON parser
+pkg> add JSON
+
 # -> press `Ctrl + D` key to exit julia REPL
 ```
 
