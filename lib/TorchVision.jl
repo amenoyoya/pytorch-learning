@@ -25,7 +25,7 @@ SOFTWARE.
 """
 
 module TorchVision
-    export transforms, models
+    export torch, torchvision, transforms, models
     export predict
     export make_transformer
     export make_transformer_for_vgg16
