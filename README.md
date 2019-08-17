@@ -49,12 +49,6 @@ pkg> add JSON
 ## install HTTP: package for HTTP messages
 pkg> add HTTP
 
-## install Flux: package for DeepLearning
-pkg> add Flux
-
-## install ONNX: package for ONNX model importer
-pkg> add ONNX
-
 # -> press `Ctrl + D` key to exit julia REPL
 ```
 
