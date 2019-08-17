@@ -52,11 +52,8 @@ pkg> add HTTP
 ## install Flux: package for DeepLearning
 pkg> add Flux
 
-## install Metalhead: package for computer vision models
-pkg> add Metalhead
-
-## install ImageMagick: package for image processor
-pkg> add ImageMagick
+## install ONNX: package for ONNX model importer
+pkg> add ONNX
 
 # -> press `Ctrl + D` key to exit julia REPL
 ```
