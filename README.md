@@ -46,6 +46,15 @@ pkg> add JSON
 ## install HTTP: package for HTTP messages
 pkg> add HTTP
 
+## install Flux: package for DeepLearning
+pkg> add Flux
+
+## install Metalhead: package for computer vision models
+pkg> add Metalhead
+
+## install ImageMagick: package for image processor
+pkg> add ImageMagick
+
 # -> press `Ctrl + D` key to exit julia REPL
 ```
 
