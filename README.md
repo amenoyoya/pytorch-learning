@@ -49,6 +49,9 @@ pkg> add JSON
 ## install HTTP: package for HTTP messages
 pkg> add HTTP
 
+## install Match: package for pattern matching
+pkg> add Match
+
 # -> press `Ctrl + D` key to exit julia REPL
 ```
 
