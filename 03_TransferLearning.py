@@ -155,3 +155,12 @@ def train_model(net, dataloaders, criterion, optimizer, num_epochs):
 
 # 学習・検証を実行
 train_model(net, dataloaders, criterion, optimizer, 2)
+
+# 転移学習結果の確認
+net.eval() # 推論モードに設定
+inputs = [
+    transform(Image.open("./data/gahag-0059907781-1.jpg")),
+    transform(Image.open("./data/publicdomainq-0025120muq.jpg")),
+]
+pred = net(torch.Tensor(inputs))
+print(pred)
