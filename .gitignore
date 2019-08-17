@@ -1,2 +1,4 @@
 /drivers/
 .ipynb_checkpoints/
+*.pth
+*.onnx

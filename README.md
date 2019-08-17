@@ -22,6 +22,9 @@ $ conda install jupyter
 # install PyTorch(CPU version)
 $ conda install pytorch-cpu torchvision-cpu -c pytorch
 
+# install onnx (Open Neural Network Expression)
+$ conda install onnx -c conda-forge
+
 # install Matplotlib
 $ conda install -c conda-forge matplotlib
 
