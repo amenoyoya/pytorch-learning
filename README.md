@@ -52,6 +52,9 @@ pkg> add HTTP
 ## install Match: package for pattern matching
 pkg> add Match
 
+## install ProgressMeter: package for display progress bar
+pkg> add ProgressMeter
+
 # -> press `Ctrl + D` key to exit julia REPL
 ```
 

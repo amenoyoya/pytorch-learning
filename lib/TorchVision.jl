@@ -26,7 +26,7 @@ SOFTWARE.
 
 module TorchVision
     export torch, torchvision, transforms, models
-    export Color, Train, Valid, Phase
+    export Color, Train, Valid, Phase, typestr
     export seed_random!, predict
     export make_transformer, make_transformer_for_vgg16, make_transformer_for_training, make_transformer_for_vgg16_training
 
@@ -46,9 +46,7 @@ module TorchVision
     const Phase = Union{Type{Train}, Type{Valid}}
 
     # 型（CamelCase）を文字列（snake_case）に変換する
-    macro typestr(T)
-        replace(replace(string(T), r"([A-Z])" => c -> "_" * lowercase(c)), r"^_" => s"")
-    end
+    typestr(T) = replace(replace(string(T), r"([A-Z])" => c -> "_" * lowercase(c)), r"^_" => s"")
 
     # 乱数初期化
     ## 値を破壊的に変更する（もしくはグローバル変数の状態に影響を与える）関数には慣例的に`!`をつける
@@ -111,7 +109,7 @@ module TorchVision
                 transforms.Normalize(mean, std)
             )
         )
-        return (img::PyObject, phase::Phase) -> trasformers[@typestr phase](img)
+        return (img::PyObject, phase::Phase) -> trasformers[typestr(phase)](img)
     end
 
     # VGG-16モデル訓練用に入力画像を変換する関数を生成
@@ -126,7 +124,7 @@ module TorchVision
     # @param TypeName: 型名
     # @param make_dataset_list_function(phase::Phase)::Array{String,1}: データセットのファイルパスリストを返す関数
     # @param image_transform_function(img::PyObject, phase::Phase)::Array{Float32,3}: 画像をモデル入力用に変換する関数
-    # @param labeling_function(img_path::String)::Int: データセットのラベルインデックスを返す関数
+    # @param labeling_function(img_path::String, phase::Phase)::Int: データセットのラベルインデックスを返す関数
     ## esc(SymbolExpression) を使うことで マクロ実行位置にそのままコードを埋め込むことができる
     ## ※ そのまま埋め込まれるため変数スコープ等は効かない
     macro image_dataset(TypeName, make_dataset_list_function, image_transform_function, labeling_function)
@@ -147,7 +145,7 @@ module TorchVision
                     img = Image.open(img_path).convert("RGB") # グレースケール画像は強制的にRGB画像に変換
                     img_transformed = $image_transform_function(img, self.phase)
                     # ラベリング
-                    label = $labeling_function(img_path)
+                    label = $labeling_function(img_path, self.phase)
                     return img_transformed, label
                 end
             end
