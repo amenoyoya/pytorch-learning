@@ -27,11 +27,12 @@ SOFTWARE.
 module TorchVision
     export torch, torchvision, transforms, models
     export Color, Train, Valid, Phase, typestr
-    export seed_random!, predict
+    export seed_random!, predict, DataLoader, set_params_to_update!, train!
     export make_transformer, make_transformer_for_vgg16, make_transformer_for_training, make_transformer_for_vgg16_training
 
-    using PyCall, Random
+    using PyCall, Random, ProgressMeter
 
+    const numpy = pyimport("numpy")
     const torch = pyimport("torch")
     const torchvision = pyimport("torchvision")
     const transforms = torchvision.transforms
@@ -52,6 +53,7 @@ module TorchVision
     ## 値を破壊的に変更する（もしくはグローバル変数の状態に影響を与える）関数には慣例的に`!`をつける
     seed_random!(seed::Int) = begin
         Random.seed!(seed)
+        numpy.random.seed(seed)
         torch.manual_seed(seed) # PyTorchの乱数初期化
     end
 
@@ -98,18 +100,18 @@ module TorchVision
     ## @param mean::Color = 各色チャンネルの標準偏差
     make_transformer_for_training(resize::Int, std::Color, mean::Color) = begin
         trasformers = Dict(
-            "train" => make_transformer(
+            Train => make_transformer(
                 transforms.RandomResizedCrop(resize; scale=(0.5, 1.0)),
                 transforms.RandomHorizontalFlip(),
                 transforms.Normalize(mean, std)
             ),
-            "valid" => make_transformer(
+            Valid => make_transformer(
                 transforms.Resize(resize),
                 transforms.CenterCrop(resize),
                 transforms.Normalize(mean, std)
             )
         )
-        return (img::PyObject, phase::Phase) -> trasformers[typestr(phase)](img)
+        return (img::PyObject, phase::Phase) -> trasformers[phase](img)
     end
 
     # VGG-16モデル訓練用に入力画像を変換する関数を生成
@@ -150,5 +152,75 @@ module TorchVision
                 end
             end
         end)
+    end
+
+    # データローダーオブジェクトの作成
+    # @param Dataset::PyObject = @TensorVision.image_dataset マクロで作成したデータセット型
+    # @param batch_size::Int = (default: 8) ミニバッチサイズ
+    # @param shuffle::Bool = (default: false) trueなら学習時にデータをシャッフルする
+    # @return Dict{DataType(Phase), PyObject(DataLoader)}
+    DataLoader(Dataset::PyObject; batch_size::Int=8, shuffle::Bool=false) = Dict(
+        Train => torch.utils.data.DataLoader(
+            Dataset(Train); batch_size=batch_size, shuffle=shuffle
+        ),
+        Valid => torch.utils.data.DataLoader(
+            Dataset(Valid); batch_size=batch_size, shuffle=shuffle
+        )
+    )
+
+    # 転移学習で学習させるパラメータを設定し、各パラメータの現在値を取得
+    # @param model::PyObject = torch.Model
+    # @param param_names::Array{String,1} = 学習させるパラメータ名
+    # @return Array{PyObject,1} = [torch.Tensor]: アップデートされるパラメータの配列
+    set_params_to_update!(model::PyObject, param_names::Array{String,1})::Array{PyObject,1} = begin
+        params_to_update::Array{PyObject,1} = []
+        # 学習させるパラメータ以外は勾配計算させない
+        for (name, param) = model.named_parameters()
+            if in(name, param_names)
+                param.required_grad = true
+                push!(params_to_update, param)
+            else
+                param.required_grad = false
+            end
+        end
+        return params_to_update
+    end
+
+    # 学習実行
+    # @param model::PyObject = torch.Model
+    # @param phase::Phase = Train: 訓練モード | Valid: 検証モード
+    # @param dataloader::Dict{DataType,PyObject} = DataLoader関数で生成したデータローダーオブジェクト
+    # @param optimizer::PyObject = torch.Optimizer: 最適化関数オブジェクト
+    # @param criterion::PyObject = torch.LossFunction: 損失関数オブジェクト
+    # @return 損失和::AbstractFloat, 正解数::Int
+    train!(model::PyObject, phase::Phase, dataloader::Dict{DataType,PyObject}, optimizer::PyObject, criterion::PyObject) = begin
+        epoch_loss = 0.0 # epochの損失和
+        epoch_corrects = 0 # epochの正解数
+        # プログレスバー
+        progress = Progress(pybuiltin("len")(dataloader[phase]))
+        for (inputs, labels) in pybuiltin("iter")(dataloader[phase])
+            # optimizer初期化
+            optimizer.zero_grad()
+            
+            # 順伝搬計算
+            torch.set_grad_enabled(phase == Train)
+            outputs = model(inputs)
+            loss = criterion(outputs, labels) # 損失計算
+            (max, preds) = torch.max(outputs, 1) # ラベルを予測
+
+            # 訓練時はバックプロパゲーション
+            if phase == Train
+                loss.backward()
+                optimizer.step()
+            end
+            
+            # イテレーション結果の計算
+            epoch_loss += loss.item() * inputs.size(0)
+            epoch_corrects += torch.sum(preds == labels.data)
+            torch.set_grad_enabled(false)
+            
+            next!(progress)
+        end
+        return epoch_loss, epoch_corrects.numpy()
     end
 end

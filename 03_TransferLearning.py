@@ -24,7 +24,7 @@ def make_transformer(resize, mean, std):
             transforms.ToTensor(),
             transforms.Normalize(mean, std)
         ]),
-        'val': transforms.Compose([
+        'valid': transforms.Compose([
             transforms.Resize(resize),
             transforms.CenterCrop(resize),
             transforms.ToTensor(),
@@ -61,7 +61,7 @@ class Dataset(data.Dataset):
         return img_transformed, label
 
 train_dataset = Dataset('train')
-val_dataset = Dataset('val')
+val_dataset = Dataset('valid')
 
 # ミニバッチサイズ
 batch_size = 32
@@ -75,7 +75,7 @@ val_dataloader = data.DataLoader(
 )
 dataloaders = {
     'train': train_dataloader,
-    'val': val_dataloader
+    'valid': val_dataloader
 }
 
 # 学習済みVGG-16モデルのロード
@@ -116,7 +116,7 @@ def train_model(net, dataloaders, criterion, optimizer, num_epochs):
         print("----------")
         
         # epochごとの学習と検証のループ
-        for phase in ["train", "val"]:
+        for phase in ["train", "valid"]:
             if phase == "train":
                 net.train() # 訓練モードに
             else:
@@ -126,7 +126,7 @@ def train_model(net, dataloaders, criterion, optimizer, num_epochs):
             epoch_corrects = 0 # epochの正解数
             
             # 未学習時の検証性能を確かめるため、最初の訓練は省略
-            if epoch == 1 and phase == "train":
+            if epoch == 0 and phase == "train":
                 continue
             
             # データローダーからミニバッチを取り出すループ
@@ -144,6 +144,8 @@ def train_model(net, dataloaders, criterion, optimizer, num_epochs):
                     loss.backward()
                     optimizer.step()
                 # イテレーション結果の計算
+                print(preds.numpy())
+                print(labels.data.numpy())
                 epoch_loss += loss.item() * inputs.size(0)
                 epoch_corrects += torch.sum(preds == labels.data)
                 torch.set_grad_enabled(False)
@@ -154,7 +156,7 @@ def train_model(net, dataloaders, criterion, optimizer, num_epochs):
             print(f"{phase} Loss: {epoch_loss}, Acc: {epoch_acc}")
 
 # 学習・検証を実行
-train_model(net, dataloaders, criterion, optimizer, 2)
+train_model(net, dataloaders, criterion, optimizer, 1)
 
 # 転移学習結果の確認
 net.eval() # 推論モードに設定
