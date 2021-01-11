@@ -58,7 +58,8 @@ RUN julia -e 'using Pkg;Pkg.add("IJulia");' && \
     julia -e 'using Pkg;Pkg.add("PyPlot");' && \
     julia -e 'using Pkg;Pkg.add("Images");' && \
     julia -e 'using Pkg;Pkg.add("ImageMagick");' && \
-    julia -e 'using Pkg;Pkg.add("Nettle");'
+    julia -e 'using Pkg;Pkg.add("Nettle");' && \
+    julia -e 'using Pkg;Pkg.add("ProgressMeter");'
 
 # スタートアップコマンド（docker up の度に実行される）: activate crontab && launch supervisor daemon
 ## 環境変数を引き継いで sudo 実行するため -E オプションをつけている
