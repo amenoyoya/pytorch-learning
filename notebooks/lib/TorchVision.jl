@@ -27,7 +27,7 @@ SOFTWARE.
 module TorchVision
     export torch, torchvision, transforms, models
     export Color, Train, Valid, Phase, typestr
-    export seed_random!, predict, DataLoader, set_params_to_update!, train!
+    export seed_random!, predict, save, load, DataLoader, set_params_to_update!, train!
     export make_transformer, make_transformer_for_vgg16, make_transformer_for_training, make_transformer_for_vgg16_training
 
     using PyCall, Random, ProgressMeter
@@ -60,6 +60,12 @@ module TorchVision
     # torch.Modelに予測させる
     ## Julia標準のArrayデータを入力として受け取り、Arrayで返す
     predict(model::PyObject, data::Array) = model(torch.tensor(data)).detach().numpy()
+
+    # torch.Modelを保存
+    save(model::PyObject, filepath::AbstractString) = torch.save(model.state_dict(), filepath)
+
+    # torch.Modelを読み込み
+    load(model::PyObject, filepath::AbstractString) = model.load_state_dict(torch.load(filepath))
 
     # PIL.Imageオブジェクトに対して変換処理を行う関数を生成
     ## @param resize: transforms.Resizeオブジェクト
